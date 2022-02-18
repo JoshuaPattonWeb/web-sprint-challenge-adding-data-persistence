@@ -5,7 +5,7 @@ const getAll = async () => {
     const projects = await db('projects')
     const collect = []
 
-    for(let i = 0; i < projects.length; i++)
+    for(let i = 0; i < projects.length; i++) {
         let collection = {
             project_id: projects[i].project_id,
             project_name: projects[i].project_name,
@@ -13,9 +13,11 @@ const getAll = async () => {
             project_completed: projects[i].project_completed === 0 ? false : true,
         }
         collect.push(collection)
+    }
+    return collect
 }
 
-const creat = async (project) => {
+const create = async (project) => {
     const [id] = await db('projects').insert(project)
     return db('projects').where('project_id', id).first()
 }
